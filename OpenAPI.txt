@@ -1,0 +1,73 @@
+openapi: 3.0.1
+info:
+  title: TransactionsAPI
+  version: 1.0.0
+paths:
+  /transactions:
+    post:
+      operationId: addTransaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Transaction'
+        required: true
+      responses:
+        201:
+          description: Transaction persited
+          content: {}
+        204:
+          description: transaction is older than sixty seconds
+          content: {}
+        400:
+          description: JSON is invalid
+          content: {}
+        422:
+          description: fields not parsable or  transaction date in future
+          content: {}
+      x-codegen-request-body-name: body
+    delete:
+      operationId: deleteTransactions
+      responses:
+        204:
+          description: deletion succesful
+  /statistics:
+    get:
+      operationId: retrieveStatistics
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statistics'
+components:
+  schemas:
+    Transaction:
+      type: object
+      properties:
+        amount:
+          type: string
+          example: "12.3343"
+        timestamp:
+          type: string
+          format: date-time
+    Statistics:
+      type: object
+      properties:
+        sum:
+          type: string
+          example: "1000.00"
+        avg:
+          type: string
+          example: "100.53"
+        max:
+          type: string
+          example: "200000.49"
+        min:
+          type: string
+          example: "50.23"
+        count:
+          type: integer
+          format: int64
+          example: 10
