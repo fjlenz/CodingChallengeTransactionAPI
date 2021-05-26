@@ -7,6 +7,7 @@ import com.n26.services.TransactionService;
 
 import org.slf4j.LoggerFactory;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 
 import org.slf4j.Logger;
@@ -31,20 +32,27 @@ public class TransactionController {
 
 		Collection<Transaction> foundTransactions = transactionService.retrieveTransactions();
 		
-		//logger.info("This is the response: '{}'", foundTransactions);
+		logger.info("This is the response im sending: '{}'", foundTransactions);
 		
         return foundTransactions;
     }
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/transactions")
-    public ResponseEntity<Transaction> addTransaction(@RequestBody Transaction transaction) {
+    public ResponseEntity<Void> addTransaction(@RequestBody Transaction transaction) {
 		
-		// TODO: Validation (datetime in future, check if amount parsable to bigdec, ...)
+		// Validate if amount can be parsed from String to BigDec
+		try {  
+			new BigDecimal(transaction.getAmount());
+		  } catch(NumberFormatException e){
+			  return new ResponseEntity<Void>(HttpStatus.UNPROCESSABLE_ENTITY);
+		  } 
 		
-		Transaction persistedTransaction = transactionService.addTransaction(transaction);
-		//logger.info("This is the persisted Transcation: '{}'", persistedTransaction);
+		transactionService.addTransaction(transaction);
 		
-        return new ResponseEntity<>(persistedTransaction, HttpStatus.CREATED);
+		// TODO: Validation timestamp (!= older than 60 secs, ...) - see Reqs. if any other validation needed
+	
+		logger.info("Adding Transaction: done - {}", transaction.toString());
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
         
     }
 	
@@ -52,11 +60,11 @@ public class TransactionController {
 	@RequestMapping(method = RequestMethod.DELETE, value = "/transactions")
     public ResponseEntity<Void> deleteAllTransaction() {
 
-		transactionService.deleteAllTransactions();
+		int deletedElements = transactionService.deleteAllTransactions();		
 		
-		logger.info("Deletion done");
+		logger.info("Deletion done: {}", deletedElements);
 		
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-    }	
+    }
 	
 }

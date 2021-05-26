@@ -8,8 +8,8 @@ import com.n26.model.Transaction;
 
 public interface TransactionService {
 
-	public abstract Transaction addTransaction(Transaction transaction);
-	public abstract void deleteAllTransactions();
+	public abstract void addTransaction(Transaction transaction);
+	public abstract int deleteAllTransactions();
 	public abstract void cleanUpTransactionsOlderThan();
 	public abstract Collection<Transaction> retrieveTransactions();
 	public abstract Statistics retrieveStatistics();

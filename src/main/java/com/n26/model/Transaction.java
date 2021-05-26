@@ -1,6 +1,6 @@
 package com.n26.model;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -20,13 +20,8 @@ public class Transaction   {
   private String amount = null;
 
   @JsonProperty("timestamp")
-  //@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ", timezone = "UTC")
-  //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-  // https://www.baeldung.com/jackson-serialize-dates
-  // timestamp – transaction time in the ISO 8601 format YYYY-MM-DDThh:mm:ss.sssZ in the UTC timezone (this is not the current timestamp)
-  
-  @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="UTC")
-  private LocalDateTime timestamp = null;
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+  private ZonedDateTime timestamp = null; 
 
   public Transaction amount(String amount) {
     this.amount = amount;
@@ -46,7 +41,7 @@ public class Transaction   {
     this.amount = amount;
   }
 
-  public Transaction timestamp(LocalDateTime timestamp) {
+  public Transaction timestamp(ZonedDateTime timestamp) {
     this.timestamp = timestamp;
     return this;
   }
@@ -57,11 +52,11 @@ public class Transaction   {
    **/
   
     @Valid
-    public LocalDateTime getTimestamp() {
+    public ZonedDateTime getTimestamp() {
     return timestamp;
   }
 
-  public void setTimestamp(LocalDateTime timestamp) {
+  public void setTimestamp(ZonedDateTime timestamp) {
     this.timestamp = timestamp;
   }
 
