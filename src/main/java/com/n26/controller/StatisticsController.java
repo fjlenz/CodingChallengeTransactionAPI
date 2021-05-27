@@ -28,6 +28,8 @@ public class StatisticsController {
 
 		Statistics calculatedStatistics = transactionService.retrieveStatistics();
 		
+		logger.info("This is the statistics im sending: '{}'", calculatedStatistics);
+		
         return new ResponseEntity<>(calculatedStatistics, HttpStatus.ACCEPTED);
         
     }

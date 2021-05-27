@@ -52,7 +52,9 @@ public class TransactionController {
 		// TODO: Validation timestamp (!= older than 60 secs, ...) - see Reqs. if any other validation needed
 	
 		logger.info("Adding Transaction: done - {}", transaction.toString());
-        return new ResponseEntity<Void>(HttpStatus.CREATED);
+    
+		// TODO: Send specific HTTPStatus depending on validation
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
         
     }
 	
