@@ -7,8 +7,6 @@ import com.n26.services.TransactionService;
 
 import org.slf4j.LoggerFactory;
 
-import java.util.Collection;
-
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,9 +28,8 @@ public class StatisticsController {
 		
 		logger.info("This is the statistics im sending: '{}'", calculatedStatistics);
 		
-        return new ResponseEntity<>(calculatedStatistics, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(calculatedStatistics, HttpStatus.OK);
         
     }
 
-	
 }

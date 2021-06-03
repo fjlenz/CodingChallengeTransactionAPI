@@ -1,9 +1,7 @@
 package com.n26.model;
 
-import java.time.ZonedDateTime;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
@@ -16,13 +14,12 @@ import javax.validation.Valid;
 
 
 public class Transaction   {
-  @JsonProperty("amount")
+  @JsonProperty(value = "amount", required = true)
   private String amount = null;
 
-  @JsonProperty("timestamp")
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
-  private ZonedDateTime timestamp = null; 
-
+  @JsonProperty(value = "timestamp", required = true)
+  private String timestamp = null;
+  
   public Transaction amount(String amount) {
     this.amount = amount;
     return this;
@@ -41,7 +38,7 @@ public class Transaction   {
     this.amount = amount;
   }
 
-  public Transaction timestamp(ZonedDateTime timestamp) {
+  public Transaction timestamp(String timestamp) {
     this.timestamp = timestamp;
     return this;
   }
@@ -52,11 +49,11 @@ public class Transaction   {
    **/
   
     @Valid
-    public ZonedDateTime getTimestamp() {
+    public String getTimestamp() {
     return timestamp;
   }
 
-  public void setTimestamp(ZonedDateTime timestamp) {
+  public void setTimestamp(String timestamp) {
     this.timestamp = timestamp;
   }
 
