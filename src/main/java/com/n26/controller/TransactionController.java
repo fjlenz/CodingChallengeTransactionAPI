@@ -69,7 +69,7 @@ public class TransactionController {
 			return new ResponseEntity<Void>(HttpStatus.UNPROCESSABLE_ENTITY);
 		}
 		
-		if (validatedTimestamp.isBefore(ZonedDateTime.now(ZoneOffset.UTC).minusSeconds(60))) {
+		if (validatedTimestamp.isBefore(ZonedDateTime.now(ZoneOffset.UTC).minusSeconds(60))) { //TODO: Externalize 60 secs to app.properties
 			//204 – if the transaction is older than 60 seconds
 			logger.info("Transaction is older than 60 seconds {}", transaction.getTimestamp());
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

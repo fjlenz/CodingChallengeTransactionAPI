@@ -9,7 +9,6 @@ import com.n26.model.Transaction;
 
 public class TransactionMapper {
 
-	
 	public TransactionEntity mapDtoToEntity (Transaction transaction) {
 
 		TransactionEntity mappedEntity = new TransactionEntity();

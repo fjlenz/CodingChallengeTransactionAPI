@@ -8,7 +8,7 @@ import com.n26.model.Transaction;
 
 public interface TransactionService {
 
-	public abstract void addTransaction(Transaction transaction);
+	public abstract Transaction addTransaction(Transaction transaction);
 	public abstract int deleteAllTransactions();
 	public abstract void cleanUpTransactionsOlderThan();
 	public abstract Collection<Transaction> retrieveTransactions();

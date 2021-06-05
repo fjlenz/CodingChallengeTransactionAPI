@@ -33,11 +33,12 @@ public class TransactionServiceImpl implements TransactionService{
 	Logger logger = LoggerFactory.getLogger("jsonConsoleAppender");
 	
 	@Override
-	public void addTransaction(Transaction transaction) {
+	public Transaction addTransaction(Transaction transaction) {
 		
 		TransactionEntity mappedTransaction = transactionMapper.mapDtoToEntity(transaction);
 		transactionRepo.add(mappedTransaction);		
 		
+		return transactionMapper.mapEntityToDto(mappedTransaction);
 	}
 
 	@Override
@@ -53,7 +54,7 @@ public class TransactionServiceImpl implements TransactionService{
 		// Remove Transactions older than 60 seconds		
 		logger.info("Number of Transaction before cleanup: {} with date {}", transactionRepo.size(), ZonedDateTime.now(ZoneOffset.UTC).toString());
 
-		transactionRepo.removeIf(t -> t.getTimeStamp().isBefore(ZonedDateTime.now(ZoneOffset.UTC).minusSeconds(60)));
+		transactionRepo.removeIf(t -> t.getTimeStamp().isBefore(ZonedDateTime.now(ZoneOffset.UTC).minusSeconds(60))); //TODO: Externalize 60 secs to app.properties
 		
 		logger.info("Number of Transaction after cleanup: {}", transactionRepo.size());
 
